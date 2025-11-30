@@ -7,7 +7,7 @@ import { useState, useCallback, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { FileData, Comment, CommentMap } from '../types';
 import { FileService, CommentService, StorageService } from '../services';
-import type { AppState } from './types';
+import type { AppState, ViewMode } from './types';
 import { AppContext } from './context';
 import { toast } from 'sonner';
 
@@ -32,6 +32,7 @@ export function AppProvider({ children }: AppProviderProps) {
   // UI state
   const [isCommentSummaryOpen, setCommentSummaryOpen] = useState(false);
   const [isExportDialogOpen, setExportDialogOpen] = useState(false);
+  const [rightPanelMode, setRightPanelMode] = useState<ViewMode>('preview');
   
   // Error state
   const [error, setError] = useState<string | null>(null);
@@ -271,6 +272,7 @@ export function AppProvider({ children }: AppProviderProps) {
     activeLineNumber,
     isCommentSummaryOpen,
     isExportDialogOpen,
+    rightPanelMode,
     error,
     
     // Actions
@@ -281,6 +283,7 @@ export function AppProvider({ children }: AppProviderProps) {
     setActiveLineNumber,
     setCommentSummaryOpen,
     setExportDialogOpen,
+    setRightPanelMode,
     clearError,
     clearAllData,
   };

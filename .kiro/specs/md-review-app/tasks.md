@@ -218,3 +218,68 @@
 
 - [x] 20. Final checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
+
+- [x] 21. Implement ViewToggle component for switching between Preview and Comments modes
+  - Create toggle button component with two states: 'preview' and 'comments'
+  - Add visual indicators for active mode
+  - Connect to global state for mode switching
+  - Style with shadcn/ui Button or custom toggle component
+  - _Requirements: 9.1_
+
+- [x] 21.1 Write property test for view mode toggle
+  - **Property 19: View mode toggle**
+  - **Validates: Requirements 9.1**
+
+- [x] 22. Implement CommentsPanel component for inline comment display
+  - Create panel that displays comments aligned with line numbers
+  - Implement line-by-line layout matching editor panel height
+  - Show empty placeholders for lines without comments
+  - Add scroll synchronization with editor panel
+  - Style with Tailwind CSS and shadcn/ui components
+  - _Requirements: 9.3, 9.7_
+
+- [x] 22.1 Write property test for comments panel completeness
+  - **Property 20: Comments panel completeness**
+  - **Validates: Requirements 9.3**
+
+- [x] 22.2 Write property test for line alignment
+  - **Property 22: Comments panel line alignment**
+  - **Validates: Requirements 9.7**
+
+- [x] 23. Add inline editing capabilities to CommentsPanel
+  - Add edit button for each comment in the comments panel
+  - Implement inline textarea for editing
+  - Add save and cancel buttons for edit mode
+  - Connect to updateComment action in global state
+  - Ensure changes persist to local storage immediately
+  - _Requirements: 9.4, 9.8_
+
+- [x] 23.1 Write property test for inline comment edit persistence
+  - **Property 21: Inline comment edit persistence**
+  - **Validates: Requirements 9.8**
+
+- [x] 24. Add delete functionality to CommentsPanel
+  - Add delete button for each comment
+  - Implement confirmation dialog for delete action
+  - Connect to deleteComment action in global state
+  - Update UI immediately after deletion
+  - _Requirements: 9.5_
+
+- [x] 25. Integrate ViewToggle and CommentsPanel into App layout
+  - Add ViewToggle to header/toolbar area
+  - Update right panel to conditionally render PreviewPanel or CommentsPanel based on mode
+  - Ensure smooth transitions between modes
+  - Preserve scroll position when switching modes
+  - Update global state to include rightPanelMode
+  - _Requirements: 9.1, 9.2, 9.6_
+
+- [x] 26. Test and polish the new view toggle feature
+  - Test switching between Preview and Comments modes
+  - Verify scroll position preservation
+  - Test inline editing and deletion in Comments mode
+  - Ensure responsive behavior on different screen sizes
+  - Add keyboard shortcuts for mode switching (optional)
+  - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5, 9.6_
+
+- [x] 27. Final checkpoint for new feature - Ensure all tests pass
+  - Ensure all tests pass, ask the user if questions arise.

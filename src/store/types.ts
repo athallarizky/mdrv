@@ -5,6 +5,11 @@
 import type { FileData, CommentMap } from '../types';
 
 /**
+ * View mode for the right panel
+ */
+export type ViewMode = 'preview' | 'comments';
+
+/**
  * Application state interface
  */
 export interface AppState {
@@ -18,6 +23,7 @@ export interface AppState {
   // UI state
   isCommentSummaryOpen: boolean;
   isExportDialogOpen: boolean;
+  rightPanelMode: ViewMode;
   
   // Error state
   error: string | null;
@@ -30,6 +36,7 @@ export interface AppState {
   setActiveLineNumber: (lineNumber: number | null) => void;
   setCommentSummaryOpen: (isOpen: boolean) => void;
   setExportDialogOpen: (isOpen: boolean) => void;
+  setRightPanelMode: (mode: ViewMode) => void;
   clearError: () => void;
   clearAllData: () => void;
 }

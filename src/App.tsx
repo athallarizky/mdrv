@@ -4,19 +4,18 @@ import {
   FileUploader, 
   EditorPanel, 
   PreviewPanel,
+  CommentsPanel,
   CommentInput,
   CommentThread,
   CommentSummary,
   ExportDialog,
-  ModeToggle
+  ModeToggle,
+  ViewToggle
 } from './components';
 import { Button } from './components/ui/button';
 import { Alert, AlertDescription } from './components/ui/alert';
 import {
-  Tooltip,
-  TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { 
   FileText, 
@@ -47,6 +46,8 @@ function App() {
     setCommentSummaryOpen,
     isExportDialogOpen,
     setExportDialogOpen,
+    rightPanelMode,
+    setRightPanelMode,
     clearAllData
   } = useAppState();
 
@@ -55,7 +56,6 @@ function App() {
 
   // Calculate stats
   const commentCount = Array.from(comments.values()).reduce((acc, curr) => acc + curr.length, 0);
-  const lineCount = currentFile?.lines.length || 0;
 
   /**
    * Handle comment submission
@@ -128,6 +128,10 @@ function App() {
           <div className="flex items-center gap-2">
             {currentFile && (
               <>
+                <ViewToggle
+                  currentMode={rightPanelMode}
+                  onModeChange={setRightPanelMode}
+                />
                 <Button
                   variant="ghost"
                   size="sm"
@@ -278,19 +282,30 @@ function App() {
                 </div>
               </div>
 
-              {/* Preview Panel */}
+              {/* Right Panel - Preview or Comments based on mode */}
               <div 
                 className={`${mobileView === 'preview' ? 'block' : 'hidden'} lg:block h-full flex flex-col`}
                 id="preview-panel"
                 role="tabpanel"
-                aria-label="Preview view"
+                aria-label={rightPanelMode === 'preview' ? 'Preview view' : 'Comments view'}
               >
                 <div className="bg-card border rounded-xl shadow-sm overflow-hidden h-full flex flex-col ring-1 ring-border/50">
                   <div className="p-3 border-b bg-muted/30 flex items-center justify-between">
-                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-2">Preview</span>
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-2">
+                      {rightPanelMode === 'preview' ? 'Preview' : 'Comments'}
+                    </span>
                   </div>
                   <div className="flex-1 overflow-hidden relative">
-                    <PreviewPanel content={currentFile.content} />
+                    {rightPanelMode === 'preview' ? (
+                      <PreviewPanel content={currentFile.content} />
+                    ) : (
+                      <CommentsPanel
+                        fileData={currentFile}
+                        comments={comments}
+                        onEditComment={handleCommentEdit}
+                        onDeleteComment={deleteComment}
+                      />
+                    )}
                   </div>
                 </div>
               </div>

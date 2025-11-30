@@ -100,6 +100,21 @@ MD Review adalah aplikasi web berbasis React yang memungkinkan pengguna untuk me
 4. WHEN the application loads THEN the MD Review System SHALL display the main interface within 2 seconds on standard broadband connections
 5. WHEN a user performs actions THEN the MD Review System SHALL maintain smooth animations and transitions
 
+### Requirement 9
+
+**User Story:** Sebagai user, saya ingin dapat beralih antara mode Preview dan Comments pada panel kanan, sehingga saya dapat melihat preview Markdown atau mengelola komentar sesuai kebutuhan saya.
+
+#### Acceptance Criteria
+
+1. WHEN a user clicks the view toggle button THEN the MD Review System SHALL switch the right panel between Preview mode and Comments mode
+2. WHEN the right panel is in Preview mode THEN the MD Review System SHALL display the rendered Markdown content
+3. WHEN the right panel is in Comments mode THEN the MD Review System SHALL display all comments aligned with their corresponding line numbers from the editor
+4. WHEN the right panel is in Comments mode THEN the MD Review System SHALL allow users to edit existing comments inline
+5. WHEN the right panel is in Comments mode THEN the MD Review System SHALL allow users to delete comments directly from the comments panel
+6. WHEN switching between modes THEN the MD Review System SHALL preserve the current scroll position relative to the content
+7. WHEN the right panel is in Comments mode and a line has no comments THEN the MD Review System SHALL display an empty space or placeholder for that line
+8. WHEN a user edits a comment in Comments mode THEN the MD Review System SHALL update the comment immediately and persist the changes to local storage
+
 ### Requirement 8
 
 **User Story:** Sebagai user, saya ingin data komentar saya tersimpan secara lokal, sehingga saya tidak kehilangan progress review ketika menutup browser.

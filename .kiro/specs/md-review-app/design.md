@@ -101,6 +101,35 @@ interface PreviewPanelProps {
 function PreviewPanel(props: PreviewPanelProps): JSX.Element
 ```
 
+#### 4a. CommentsPanel Component
+Panel yang menampilkan semua comments aligned dengan line numbers dari editor, dengan kemampuan edit inline.
+
+```typescript
+interface CommentsPanelProps {
+  fileData: FileData;
+  comments: CommentMap;
+  onEditComment: (commentId: string, newText: string) => void;
+  onDeleteComment: (commentId: string) => void;
+  scrollLineNumber?: number; // For syncing scroll with editor
+}
+
+function CommentsPanel(props: CommentsPanelProps): JSX.Element
+```
+
+#### 4b. ViewToggle Component
+Toggle button untuk switch antara Preview dan Comments mode.
+
+```typescript
+type ViewMode = 'preview' | 'comments';
+
+interface ViewToggleProps {
+  currentMode: ViewMode;
+  onModeChange: (mode: ViewMode) => void;
+}
+
+function ViewToggle(props: ViewToggleProps): JSX.Element
+```
+
 #### 5. CommentInput Component
 Component untuk menambahkan atau mengedit comment pada line tertentu.
 
@@ -207,6 +236,8 @@ interface StorageData {
 ### Global State Structure
 
 ```typescript
+type ViewMode = 'preview' | 'comments';
+
 interface AppState {
   // File state
   currentFile: FileData | null;
@@ -218,6 +249,7 @@ interface AppState {
   // UI state
   isCommentSummaryOpen: boolean;
   isExportDialogOpen: boolean;
+  rightPanelMode: ViewMode; // New: toggle between preview and comments
   
   // Actions
   loadFile: (file: File) => Promise<void>;
@@ -225,6 +257,7 @@ interface AppState {
   updateComment: (commentId: string, text: string) => void;
   deleteComment: (commentId: string) => void;
   setActiveLineNumber: (lineNumber: number | null) => void;
+  setRightPanelMode: (mode: ViewMode) => void; // New action
   exportComments: () => string;
   clearAllData: () => void;
 }
@@ -376,6 +409,22 @@ After analyzing all acceptance criteria, several properties can be consolidated 
 *For any* two different files with comments, the comments for one file should not appear when viewing the other file.
 **Validates: Requirements 8.5**
 
+**Property 19: View mode toggle**
+*For any* view mode (preview or comments), clicking the toggle button should switch to the opposite mode.
+**Validates: Requirements 9.1**
+
+**Property 20: Comments panel completeness**
+*For any* file with comments, when in Comments mode, all comments should be displayed aligned with their corresponding line numbers.
+**Validates: Requirements 9.3**
+
+**Property 21: Inline comment edit persistence**
+*For any* comment edited in Comments mode, the updated text should be immediately persisted to local storage and reflected in all views.
+**Validates: Requirements 9.8**
+
+**Property 22: Comments panel line alignment**
+*For any* line number in the editor, the corresponding position in the Comments panel should align with the same line number, whether or not a comment exists for that line.
+**Validates: Requirements 9.7**
+
 ## Error Handling
 
 ### File Loading Errors
@@ -474,12 +523,13 @@ While not part of the core implementation, we recommend using **Playwright** or 
 **Desktop Layout (≥1024px):**
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                     Header / Toolbar                     │
+│            Header / Toolbar + View Toggle               │
 ├──────────────────────────┬──────────────────────────────┤
 │                          │                              │
-│     Editor Panel         │      Preview Panel           │
-│   (Line numbers +        │   (Rendered Markdown)        │
-│    Raw Markdown)         │                              │
+│     Editor Panel         │   Preview / Comments Panel   │
+│   (Line numbers +        │   (Toggle between:)          │
+│    Raw Markdown)         │   - Rendered Markdown        │
+│                          │   - Inline Comments)         │
 │                          │                              │
 │                          │                              │
 └──────────────────────────┴──────────────────────────────┘
