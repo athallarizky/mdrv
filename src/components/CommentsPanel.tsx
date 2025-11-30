@@ -10,7 +10,15 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-import { Pencil, Trash2, Check, X } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Pencil, Trash2, Check, X, AlertTriangle } from 'lucide-react';
 import type { FileData, CommentMap, Comment } from '../types';
 
 /**
@@ -38,6 +46,10 @@ export function CommentsPanel({
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
   const [editText, setEditText] = useState<string>('');
   const [editError, setEditError] = useState<string | null>(null);
+  
+  // Track delete confirmation dialog
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState<string | null>(null);
 
   /**
    * Get comments for a specific line
@@ -112,9 +124,72 @@ export function CommentsPanel({
     }
   };
 
+  /**
+   * Handle delete button click - opens confirmation dialog
+   */
+  const handleDeleteClick = (commentId: string) => {
+    setCommentToDelete(commentId);
+    setDeleteDialogOpen(true);
+  };
+
+  /**
+   * Confirm delete action
+   */
+  const confirmDelete = () => {
+    if (commentToDelete) {
+      onDeleteComment(commentToDelete);
+      setDeleteDialogOpen(false);
+      setCommentToDelete(null);
+    }
+  };
+
+  /**
+   * Cancel delete action
+   */
+  const cancelDelete = () => {
+    setDeleteDialogOpen(false);
+    setCommentToDelete(null);
+  };
+
   return (
-    <ScrollArea className="h-full">
-      <div className="font-mono text-sm" role="list" aria-label="Comments aligned with line numbers">
+    <>
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent className="sm:max-w-[400px] p-0 overflow-hidden gap-0 rounded-xl border shadow-lg">
+          <DialogHeader className="p-6 pb-4">
+            <div className="flex items-center gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-destructive/10 ring-8 ring-destructive/5">
+                <AlertTriangle className="h-6 w-6 text-destructive" aria-hidden="true" />
+              </div>
+              <div className="space-y-1">
+                <DialogTitle className="text-lg font-semibold tracking-tight">Delete Comment</DialogTitle>
+                <DialogDescription className="text-sm text-muted-foreground leading-relaxed">
+                  Are you sure you want to delete this comment? This action cannot be undone.
+                </DialogDescription>
+              </div>
+            </div>
+          </DialogHeader>
+          <DialogFooter className="bg-muted/30 p-4 sm:justify-end gap-3 border-t">
+            <Button
+              variant="outline"
+              onClick={cancelDelete}
+              className="rounded-lg border-border/50 shadow-sm hover:bg-muted"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={confirmDelete}
+              className="rounded-lg shadow-sm"
+            >
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <ScrollArea className="h-full">
+        <div className="font-mono text-sm" role="list" aria-label="Comments aligned with line numbers">
         {fileData.lines.map((_, index) => {
           const lineNumber = index + 1;
           const lineComments = getCommentsForLine(lineNumber);
@@ -132,7 +207,7 @@ export function CommentsPanel({
                 className={`
                   flex items-start justify-end px-3 py-2 min-w-[4rem] border-r
                   text-muted-foreground select-none
-                  ${hasComments ? 'text-orange-600 dark:text-orange-400 font-semibold' : ''}
+                  ${hasComments ? 'text-orange-600 dark:text-orange-400 font-semibold border-r-4' : ''}
                 `}
                 aria-label={`Line ${lineNumber}`}
               >
@@ -220,12 +295,8 @@ export function CommentsPanel({
                                   <Button
                                     variant="ghost"
                                     size="sm"
-                                    className="h-6 w-6 p-0 text-destructive hover:text-destructive"
-                                    onClick={() => {
-                                      if (confirm('Delete this comment?')) {
-                                        onDeleteComment(comment.id);
-                                      }
-                                    }}
+                                    className="h-6 w-6 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
+                                    onClick={() => handleDeleteClick(comment.id)}
                                     aria-label="Delete comment"
                                   >
                                     <Trash2 className="h-3 w-3" />
@@ -254,7 +325,8 @@ export function CommentsPanel({
             </div>
           );
         })}
-      </div>
-    </ScrollArea>
+        </div>
+      </ScrollArea>
+    </>
   );
 }

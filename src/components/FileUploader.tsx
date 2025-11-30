@@ -7,12 +7,7 @@ import { useRef, useState } from 'react';
 import type { DragEvent, ChangeEvent, MouseEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from './ui/tooltip';
+import { TooltipProvider } from './ui/tooltip';
 import { FileText, AlertCircle, AlertTriangle, CloudUpload } from 'lucide-react';
 
 interface FileUploaderProps {

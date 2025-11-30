@@ -191,12 +191,9 @@ describe('CommentThread', () => {
     expect(onEdit).not.toHaveBeenCalled();
   });
 
-  it('calls onDelete when delete is confirmed', () => {
+  it('opens delete confirmation dialog when delete button is clicked', () => {
     const onEdit = vi.fn();
     const onDelete = vi.fn();
-
-    // Mock window.confirm
-    vi.spyOn(window, 'confirm').mockReturnValue(true);
 
     render(
       <CommentThread
@@ -210,16 +207,38 @@ describe('CommentThread', () => {
     const deleteButton = screen.getByLabelText('Delete this comment');
     fireEvent.click(deleteButton);
 
-    expect(window.confirm).toHaveBeenCalled();
+    // Check that the dialog is displayed
+    expect(screen.getByText('Delete Comment')).toBeInTheDocument();
+    expect(screen.getByText(/Are you sure you want to delete this comment/)).toBeInTheDocument();
+  });
+
+  it('calls onDelete when delete is confirmed in dialog', () => {
+    const onEdit = vi.fn();
+    const onDelete = vi.fn();
+
+    render(
+      <CommentThread
+        lineNumber={5}
+        comments={[mockComments[0]]}
+        onEdit={onEdit}
+        onDelete={onDelete}
+      />
+    );
+
+    // Click delete button to open dialog
+    const deleteButton = screen.getByLabelText('Delete this comment');
+    fireEvent.click(deleteButton);
+
+    // Find and click the Delete button by text
+    const confirmButton = screen.getByText('Delete');
+    fireEvent.click(confirmButton);
+
     expect(onDelete).toHaveBeenCalledWith('1');
   });
 
-  it('does not call onDelete when delete is cancelled', () => {
+  it('does not call onDelete when delete is cancelled in dialog', () => {
     const onEdit = vi.fn();
     const onDelete = vi.fn();
-
-    // Mock window.confirm to return false
-    vi.spyOn(window, 'confirm').mockReturnValue(false);
 
     render(
       <CommentThread
@@ -230,10 +249,14 @@ describe('CommentThread', () => {
       />
     );
 
+    // Click delete button to open dialog
     const deleteButton = screen.getByLabelText('Delete this comment');
     fireEvent.click(deleteButton);
 
-    expect(window.confirm).toHaveBeenCalled();
+    // Find and click the Cancel button by text
+    const cancelButton = screen.getByText('Cancel');
+    fireEvent.click(cancelButton);
+
     expect(onDelete).not.toHaveBeenCalled();
   });
 

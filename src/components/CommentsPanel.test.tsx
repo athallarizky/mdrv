@@ -314,15 +314,11 @@ describe('CommentsPanel - Unit Tests', () => {
     const commentMap: CommentMap = new Map();
     commentMap.set(2, [comment]);
 
-    // Mock the confirm dialog to return true
-    const originalConfirm = window.confirm;
-    window.confirm = vi.fn(() => true);
-
     // Mock the delete callback
     const handleDeleteComment = vi.fn();
 
     // Render the component
-    const { container } = render(
+    const { container, getByRole, getByText } = render(
       <CommentsPanel
         fileData={fileData}
         comments={commentMap}
@@ -335,18 +331,19 @@ describe('CommentsPanel - Unit Tests', () => {
     const deleteButton = container.querySelector('[aria-label="Delete comment"]') as HTMLButtonElement;
     expect(deleteButton).not.toBeNull();
 
-    // Click the delete button
+    // Click the delete button to open dialog
     fireEvent.click(deleteButton);
 
-    // Verify confirm was called
-    expect(window.confirm).toHaveBeenCalledWith('Delete this comment?');
+    // Verify dialog is shown
+    expect(getByText('Delete Comment')).toBeInTheDocument();
+
+    // Click confirm button in dialog (find by text)
+    const confirmButton = getByText('Delete');
+    fireEvent.click(confirmButton);
 
     // Verify onDeleteComment was called with correct comment ID
     expect(handleDeleteComment).toHaveBeenCalledWith('comment-1');
     expect(handleDeleteComment).toHaveBeenCalledTimes(1);
-
-    // Restore original confirm
-    window.confirm = originalConfirm;
   });
 
   it('should not call onDeleteComment when user cancels confirmation', () => {
@@ -370,15 +367,11 @@ describe('CommentsPanel - Unit Tests', () => {
     const commentMap: CommentMap = new Map();
     commentMap.set(1, [comment]);
 
-    // Mock the confirm dialog to return false (user cancels)
-    const originalConfirm = window.confirm;
-    window.confirm = vi.fn(() => false);
-
     // Mock the delete callback
     const handleDeleteComment = vi.fn();
 
     // Render the component
-    const { container } = render(
+    const { container, getByRole, getByText } = render(
       <CommentsPanel
         fileData={fileData}
         comments={commentMap}
@@ -391,17 +384,18 @@ describe('CommentsPanel - Unit Tests', () => {
     const deleteButton = container.querySelector('[aria-label="Delete comment"]') as HTMLButtonElement;
     expect(deleteButton).not.toBeNull();
 
-    // Click the delete button
+    // Click the delete button to open dialog
     fireEvent.click(deleteButton);
 
-    // Verify confirm was called
-    expect(window.confirm).toHaveBeenCalledWith('Delete this comment?');
+    // Verify dialog is shown
+    expect(getByText('Delete Comment')).toBeInTheDocument();
+
+    // Click cancel button in dialog (find by text)
+    const cancelButton = getByText('Cancel');
+    fireEvent.click(cancelButton);
 
     // Verify onDeleteComment was NOT called
     expect(handleDeleteComment).not.toHaveBeenCalled();
-
-    // Restore original confirm
-    window.confirm = originalConfirm;
   });
 
   it('should have delete button for each comment', () => {

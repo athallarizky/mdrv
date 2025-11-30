@@ -279,7 +279,7 @@ function App() {
                 <div className="bg-card border rounded-xl shadow-sm overflow-hidden h-full flex flex-col ring-1 ring-border/50 transition-all duration-200 group-hover:shadow-md group-hover:ring-border">
                   <div className="px-4 py-3 border-b bg-muted/20 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="h-2 w-2 rounded-full bg-orange-500/50" />
+                      <div className="h-2 w-2 rounded-full bg-green-500/50" />
                       <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Source</span>
                     </div>
                   </div>

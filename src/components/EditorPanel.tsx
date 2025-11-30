@@ -83,7 +83,7 @@ export function EditorPanel({
                           transition-colors cursor-pointer select-none
                           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
                           ${isActive ? 'bg-primary/20 text-primary font-semibold border-primary/50' : ''}
-                          ${hasComment ? 'text-orange-600 dark:text-orange-400' : ''}
+                          ${hasComment ? 'text-orange-600 dark:text-orange-400 border-r-4' : ''}
                         `}
                         aria-label={`Line ${lineNumber}${hasComment ? `, ${commentCount} comment${commentCount > 1 ? 's' : ''}` : ', click to add comment'}`}
                         aria-pressed={isActive}

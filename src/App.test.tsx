@@ -27,7 +27,7 @@ describe('App - Integration Tests', () => {
     vi.spyOn(window, 'confirm').mockImplementation(() => true);
     
     // Mock ResizeObserver for ScrollArea component
-    global.ResizeObserver = class ResizeObserver {
+    (globalThis as unknown).ResizeObserver = class ResizeObserver {
       observe() {}
       unobserve() {}
       disconnect() {}
