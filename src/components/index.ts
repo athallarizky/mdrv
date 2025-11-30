@@ -8,3 +8,4 @@ export { CommentSummary } from './CommentSummary';
 export { ExportDialog } from './ExportDialog';
 export { ErrorBoundary } from './ErrorBoundary';
 export { ThemeProvider } from './ThemeProvider';
+export { ModeToggle } from './ModeToggle';

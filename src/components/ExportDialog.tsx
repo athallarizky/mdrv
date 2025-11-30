@@ -166,7 +166,7 @@ export function ExportDialog({
           <div className="mb-2">
             <h3 className="text-sm font-medium" id="export-preview-heading">Preview:</h3>
           </div>
-          <ScrollArea className="h-[400px] w-full rounded-md border bg-muted/30">
+          <ScrollArea className="h-[400px] w-full rounded-xl border bg-muted/30">
             <pre 
               className="p-4 text-xs font-mono whitespace-pre-wrap break-words"
               aria-labelledby="export-preview-heading"

@@ -36,20 +36,15 @@ export function PreviewPanel({ content }: PreviewPanelProps) {
   };
 
   return (
-    <div className="h-full border rounded-lg bg-card" role="region" aria-label="Markdown preview">
-      <div className="border-b px-4 py-2 bg-muted/50">
-        <h3 className="text-sm font-medium" id="preview-heading">Preview</h3>
-      </div>
-      <ScrollArea className="h-[calc(100%-3rem)] w-full">
+      <ScrollArea className="h-full w-full">
         <article 
           className="prose prose-slate max-w-none p-6 dark:prose-invert"
-          aria-labelledby="preview-heading"
+          aria-label="Markdown preview content"
         >
           <ReactMarkdown components={components} remarkPlugins={[remarkGfm]}>
             {content}
           </ReactMarkdown>
         </article>
       </ScrollArea>
-    </div>
   );
 }

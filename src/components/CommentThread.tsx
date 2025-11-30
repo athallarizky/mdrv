@@ -132,7 +132,7 @@ export function CommentThread({
                 />
               ) : (
                 <article 
-                  className="border rounded-md p-3 space-y-2 bg-muted/30"
+                  className="border rounded-xl p-3 space-y-2 bg-muted/30 transition-all hover:bg-muted/50"
                   aria-label="Comment"
                 >
                   {/* Comment text */}

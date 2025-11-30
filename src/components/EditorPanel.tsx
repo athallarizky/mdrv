@@ -54,13 +54,8 @@ export function EditorPanel({
 
   return (
     <TooltipProvider>
-      <div className="h-full border rounded-lg bg-card" role="region" aria-label="Markdown editor">
-        <div className="border-b px-4 py-2 bg-muted/50">
-          <h3 className="text-sm font-medium" id="editor-heading">Editor</h3>
-        </div>
-        
-        <ScrollArea className="h-[calc(100%-3rem)]">
-          <div className="font-mono text-sm" role="list" aria-labelledby="editor-heading">
+      <ScrollArea className="h-full">
+          <div className="font-mono text-sm" role="list" aria-label="Markdown editor content">
             {fileData.lines.map((line, index) => {
               const lineNumber = index + 1;
               const isActive = lineNumber === activeLineNumber;
@@ -116,7 +111,6 @@ export function EditorPanel({
             })}
           </div>
         </ScrollArea>
-      </div>
     </TooltipProvider>
   );
 }

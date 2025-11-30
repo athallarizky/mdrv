@@ -108,7 +108,7 @@ export function CommentInput({
   return (
     <TooltipProvider>
       <div 
-        className="space-y-3 p-4 border rounded-md bg-background"
+        className="space-y-3 p-4 border rounded-xl bg-card shadow-sm ring-1 ring-border/50 animate-fade-in"
         role="form"
         aria-label={isEditMode ? 'Edit comment form' : 'Add comment form'}
       >

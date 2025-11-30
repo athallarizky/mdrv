@@ -139,7 +139,7 @@ export function CommentSummary({
                   return (
                     <li
                       key={lineNumber}
-                      className="border rounded-lg p-4 hover:bg-muted/50 transition-colors"
+                      className="border rounded-xl p-4 hover:bg-muted/50 transition-all duration-200"
                     >
                       {/* Line header with navigation */}
                       <button
