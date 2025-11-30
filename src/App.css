@@ -1,0 +1,14 @@
+/* App-specific styles */
+
+/* Smooth transitions for responsive layout changes */
+@media (prefers-reduced-motion: no-preference) {
+  .transition-layout {
+    transition: all 200ms ease-in-out;
+  }
+}
+
+/* Ensure proper container sizing */
+.container {
+  width: 100%;
+  max-width: 1400px;
+}

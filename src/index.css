@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #09090b;
+  --color-card: #ffffff;
+  --color-card-foreground: #09090b;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #09090b;
+  --color-primary: #3b82f6;
+  --color-primary-foreground: #f8fafc;
+  --color-secondary: #f1f5f9;
+  --color-secondary-foreground: #0f172a;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  --color-accent: #f1f5f9;
+  --color-accent-foreground: #0f172a;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #f8fafc;
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+  --color-ring: #3b82f6;
+  --radius: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-background: #09090b;
+    --color-foreground: #f8fafc;
+    --color-card: #09090b;
+    --color-card-foreground: #f8fafc;
+    --color-popover: #09090b;
+    --color-popover-foreground: #f8fafc;
+    --color-primary: #60a5fa;
+    --color-primary-foreground: #0f172a;
+    --color-secondary: #1e293b;
+    --color-secondary-foreground: #f8fafc;
+    --color-muted: #1e293b;
+    --color-muted-foreground: #94a3b8;
+    --color-accent: #1e293b;
+    --color-accent-foreground: #f8fafc;
+    --color-destructive: #7f1d1d;
+    --color-destructive-foreground: #f8fafc;
+    --color-border: #1e293b;
+    --color-input: #1e293b;
+    --color-ring: #1d4ed8;
+  }
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* Enhanced focus indicators for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* Skip to main content link for keyboard navigation */
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  text-decoration: none;
+  border-radius: var(--radius);
+}
+
+.skip-to-main:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* Ensure sufficient contrast for focus states */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  * {
+    border-width: 2px;
+  }
+  
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* Smooth transitions for interactive elements */
+button,
+a,
+input,
+textarea,
+select,
+[role="button"],
+[role="tab"] {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Smooth animations for dialogs and modals */
+[role="dialog"],
+[role="alertdialog"] {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Smooth hover effects */
+button:hover:not(:disabled),
+a:hover {
+  transform: translateY(-1px);
+}
+
+button:active:not(:disabled),
+a:active {
+  transform: translateY(0);
+}
+
+/* Smooth panel transitions */
+.panel-transition {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  button:hover:not(:disabled),
+  a:hover,
+  button:active:not(:disabled),
+  a:active {
+    transform: none;
+  }
+}
