@@ -38,7 +38,7 @@ export function PreviewPanel({ content }: PreviewPanelProps) {
   return (
       <ScrollArea className="h-full w-full">
         <article 
-          className="prose prose-slate max-w-none p-6 dark:prose-invert"
+          className="prose prose-slate dark:prose-invert max-w-none p-8 prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-p:leading-7 prose-pre:bg-muted/50 prose-pre:border prose-pre:border-border/50"
           aria-label="Markdown preview content"
         >
           <ReactMarkdown components={components} remarkPlugins={[remarkGfm]}>

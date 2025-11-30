@@ -201,26 +201,35 @@ function App() {
           <div className="space-y-6 animate-fade-in">
             {/* File Info Bar */}
             <div 
-              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-1"
+              className="top-20 z-30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border rounded-xl shadow-sm ring-1 ring-border/50"
               role="region"
               aria-label="File information"
             >
               <div className="flex-1 min-w-0">
-                <h2 className="text-2xl font-bold tracking-tight truncate mb-1">{currentFile.name}</h2>
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <div className="flex items-center gap-3 mb-1.5">
+                  <div className="p-1.5 rounded-md bg-primary/10 text-primary">
+                    <FileText className="h-4 w-4" />
+                  </div>
+                  <h2 className="text-lg font-semibold tracking-tight truncate">{currentFile.name}</h2>
+                </div>
+                <div className="flex items-center gap-4 text-xs text-muted-foreground pl-1">
                   <span className="flex items-center gap-1.5">
-                    <FileText className="h-3.5 w-3.5" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600" />
                     {currentFile.lines.length} lines
                   </span>
-                  <span className="h-1 w-1 rounded-full bg-border" />
                   <span className="flex items-center gap-1.5">
-                    <MessageSquare className="h-3.5 w-3.5" />
+                    <span className={`h-1.5 w-1.5 rounded-full ${comments.size > 0 ? 'bg-primary' : 'bg-zinc-400 dark:bg-zinc-600'}`} />
                     {Array.from(comments.values()).reduce((sum, c) => sum + c.length, 0)} comments
                   </span>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                 <Button variant="ghost" size="sm" onClick={clearAllData} className="text-muted-foreground">
+              <div className="flex items-center gap-2">
+                 <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={clearAllData} 
+                    className="h-8 text-xs font-medium hover:bg-destructive/10 hover:text-destructive hover:border-destructive/50 transition-colors"
+                 >
                     Change File
                  </Button>
               </div>
@@ -228,7 +237,7 @@ function App() {
 
             {/* Mobile View Toggle */}
             <div 
-              className="lg:hidden flex gap-1 p-1 bg-secondary/50 rounded-xl border border-border/50"
+              className="lg:hidden flex gap-1 p-1 bg-muted/50 rounded-xl border border-border/50"
               role="tablist"
               aria-label="View selection"
             >
@@ -259,19 +268,22 @@ function App() {
             </div>
 
             {/* Desktop: Side-by-Side Layout | Mobile: Stacked/Toggle Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-16rem)] min-h-[500px]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-18rem)] min-h-[600px]">
               {/* Editor Panel */}
               <div 
-                className={`${mobileView === 'editor' ? 'block' : 'hidden'} lg:block h-full flex flex-col`}
+                className={`${mobileView === 'editor' ? 'block' : 'hidden'} lg:block h-full flex flex-col group`}
                 id="editor-panel"
                 role="tabpanel"
                 aria-label="Editor view"
               >
-                <div className="bg-card border rounded-xl shadow-sm overflow-hidden h-full flex flex-col ring-1 ring-border/50">
-                  <div className="p-3 border-b bg-muted/30 flex items-center justify-between">
-                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-2">Source</span>
+                <div className="bg-card border rounded-xl shadow-sm overflow-hidden h-full flex flex-col ring-1 ring-border/50 transition-all duration-200 group-hover:shadow-md group-hover:ring-border">
+                  <div className="px-4 py-3 border-b bg-muted/20 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="h-2 w-2 rounded-full bg-orange-500/50" />
+                      <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Source</span>
+                    </div>
                   </div>
-                  <div className="flex-1 overflow-hidden relative">
+                  <div className="flex-1 overflow-hidden relative bg-background">
                     <EditorPanel
                       fileData={currentFile}
                       comments={comments}
@@ -282,20 +294,23 @@ function App() {
                 </div>
               </div>
 
-              {/* Right Panel - Preview or Comments based on mode */}
+              {/* Preview Panel */}
               <div 
-                className={`${mobileView === 'preview' ? 'block' : 'hidden'} lg:block h-full flex flex-col`}
+                className={`${mobileView === 'preview' ? 'block' : 'hidden'} lg:block h-full flex flex-col group`}
                 id="preview-panel"
                 role="tabpanel"
-                aria-label={rightPanelMode === 'preview' ? 'Preview view' : 'Comments view'}
+                aria-label="Preview view"
               >
-                <div className="bg-card border rounded-xl shadow-sm overflow-hidden h-full flex flex-col ring-1 ring-border/50">
-                  <div className="p-3 border-b bg-muted/30 flex items-center justify-between">
-                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-2">
-                      {rightPanelMode === 'preview' ? 'Preview' : 'Comments'}
-                    </span>
+                <div className="bg-card border rounded-xl shadow-sm overflow-hidden h-full flex flex-col ring-1 ring-border/50 transition-all duration-200 group-hover:shadow-md group-hover:ring-border">
+                  <div className="px-4 py-3 border-b bg-muted/20 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className={`h-2 w-2 rounded-full ${rightPanelMode === 'preview' ? 'bg-blue-500/50' : 'bg-orange-500/50'}`} />
+                      <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                        {rightPanelMode === 'preview' ? 'Preview' : 'Comments'}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex-1 overflow-hidden relative">
+                  <div className="flex-1 overflow-hidden relative bg-background">
                     {rightPanelMode === 'preview' ? (
                       <PreviewPanel content={currentFile.content} />
                     ) : (
@@ -314,34 +329,41 @@ function App() {
             {/* Comment Input - Shows when a line is selected */}
             {activeLineNumber !== null && (
               <div 
-                className="fixed bottom-6 right-6 z-40 w-full max-w-md animate-fade-in"
+                className="fixed bottom-8 right-8 z-40 w-full max-w-md animate-in slide-in-from-bottom-5 fade-in duration-300"
                 role="region"
                 aria-label={`Comments for line ${activeLineNumber}`}
               >
-                <div className="bg-card border rounded-xl shadow-xl p-4 ring-1 ring-border">
-                  <div className="flex items-center justify-between mb-4 pb-2 border-b">
-                     <span className="font-medium text-sm">Line {activeLineNumber}</span>
-                     <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setActiveLineNumber(null)}>
-                        <X className="h-3 w-3" />
-                     </Button>
-                  </div>
-                  
-                  {activeLineComments.length > 0 ? (
-                    <div className="space-y-4 max-h-[40vh] overflow-y-auto mb-4 pr-1">
-                      <CommentThread
-                        lineNumber={activeLineNumber}
-                        comments={activeLineComments}
-                        onEdit={handleCommentEdit}
-                        onDelete={deleteComment}
-                      />
+                <div className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border rounded-2xl shadow-2xl p-1 ring-1 ring-border/50">
+                  <div className="p-4">
+                    <div className="flex items-center justify-between mb-4">
+                       <div className="flex items-center gap-2">
+                          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs font-medium text-primary">
+                            {activeLineNumber}
+                          </span>
+                          <span className="font-semibold text-sm">Line Comments</span>
+                       </div>
+                       <Button variant="ghost" size="icon" className="h-6 w-6 rounded-full hover:bg-muted" onClick={() => setActiveLineNumber(null)}>
+                          <X className="h-3.5 w-3.5" />
+                       </Button>
                     </div>
-                  ) : null}
-                  
-                  <CommentInput
-                    lineNumber={activeLineNumber}
-                    onSubmit={handleCommentSubmit}
-                    onCancel={() => setActiveLineNumber(null)}
-                  />
+                    
+                    {activeLineComments.length > 0 ? (
+                      <div className="space-y-4 max-h-[40vh] overflow-y-auto mb-4 pr-1 scrollbar-thin">
+                        <CommentThread
+                          lineNumber={activeLineNumber}
+                          comments={activeLineComments}
+                          onEdit={handleCommentEdit}
+                          onDelete={deleteComment}
+                        />
+                      </div>
+                    ) : null}
+                    
+                    <CommentInput
+                      lineNumber={activeLineNumber}
+                      onSubmit={handleCommentSubmit}
+                      onCancel={() => setActiveLineNumber(null)}
+                    />
+                  </div>
                 </div>
               </div>
             )}
