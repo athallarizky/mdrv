@@ -6,7 +6,7 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import * as fc from 'fast-check';
 import { render, screen, cleanup } from '@testing-library/react';
-import { CommentSummary } from './CommentSummary';
+import { CommentSummary } from '../CommentSummary';
 import type { FileData, CommentMap, Comment } from '../types';
 
 describe('CommentSummary - Property-Based Tests', () => {

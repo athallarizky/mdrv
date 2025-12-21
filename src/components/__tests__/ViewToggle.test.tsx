@@ -7,7 +7,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as fc from 'fast-check';
-import { ViewToggle } from './ViewToggle';
+import { ViewToggle } from '../ViewToggle';
 import type { ViewMode } from '../store/types';
 
 describe('ViewToggle', () => {

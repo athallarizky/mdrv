@@ -4,7 +4,7 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { CommentInput } from './CommentInput';
+import { CommentInput } from '../CommentInput';
 import type { Comment } from '../types';
 
 describe('CommentInput', () => {

@@ -6,7 +6,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
 import * as fc from 'fast-check';
-import { CommentsPanel } from './CommentsPanel';
+import { CommentsPanel } from '../CommentsPanel';
 import type { FileData, CommentMap, Comment } from '../types';
 
 describe('CommentsPanel - Property-Based Tests', () => {

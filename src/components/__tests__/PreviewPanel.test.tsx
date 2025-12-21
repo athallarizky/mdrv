@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 import * as fc from 'fast-check';
-import { PreviewPanel } from './PreviewPanel';
+import { PreviewPanel } from '../PreviewPanel';
 
 describe('PreviewPanel', () => {
   // Simple unit test to verify basic rendering

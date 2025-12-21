@@ -6,7 +6,7 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 import * as fc from 'fast-check';
-import { EditorPanel } from './EditorPanel';
+import { EditorPanel } from '../EditorPanel';
 import type { FileData, CommentMap, Comment } from '../types';
 
 describe('EditorPanel - Property-Based Tests', () => {
