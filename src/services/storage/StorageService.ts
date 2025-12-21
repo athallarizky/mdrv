@@ -3,7 +3,7 @@
  * Provides methods for saving/loading comments and file data with error handling
  */
 
-import type { FileData, Comment, CommentMap, StorageData } from '../types';
+import type { FileData, Comment, CommentMap, StorageData } from '../../types';
 import { toast } from 'sonner';
 
 const STORAGE_KEY = 'md-review-app';

@@ -5,7 +5,7 @@
 import { describe, it, expect } from 'vitest';
 import * as fc from 'fast-check';
 import { ExportService } from './ExportService';
-import type { FileData, Comment } from '../types';
+import type { FileData, Comment } from '../../types';
 
 describe('ExportService', () => {
   // Helper to create a FileData object

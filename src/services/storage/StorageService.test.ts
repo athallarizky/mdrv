@@ -5,7 +5,7 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import * as fc from 'fast-check';
 import { StorageService } from './StorageService';
-import type { Comment } from '../types';
+import type { Comment } from '../../types';
 
 describe('StorageService', () => {
   // Clear storage before and after each test

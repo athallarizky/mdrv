@@ -3,7 +3,7 @@
  * Provides methods for generating Markdown exports and downloading files
  */
 
-import type { FileData, CommentMap } from '../types';
+import type { FileData, CommentMap } from '../../types';
 
 export class ExportService {
   /**

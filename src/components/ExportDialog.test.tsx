@@ -6,7 +6,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ExportDialog } from './ExportDialog';
 import type { FileData, CommentMap } from '../types';
-import { ExportService } from '../services/ExportService';
+import { ExportService } from '../services/export';
 
 describe('ExportDialog', () => {
   const mockFileData: FileData = {

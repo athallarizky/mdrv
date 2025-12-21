@@ -6,8 +6,8 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import * as fc from 'fast-check';
 import { CommentService } from './CommentService';
-import { StorageService } from './StorageService';
-import type { Comment, CommentMap } from '../types';
+import { StorageService } from '../storage';
+import type { Comment, CommentMap } from '../../types';
 
 describe('CommentService - Property-Based Tests', () => {
   // Clean up storage before and after each test

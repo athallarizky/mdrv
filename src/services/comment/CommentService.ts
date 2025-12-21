@@ -3,8 +3,8 @@
  * Provides methods for creating, updating, deleting, and retrieving comments
  */
 
-import type { Comment, CommentMap } from '../types';
-import { StorageService } from './StorageService';
+import type { Comment, CommentMap } from '../../types';
+import { StorageService } from '../storage';
 
 export class CommentService {
   /**

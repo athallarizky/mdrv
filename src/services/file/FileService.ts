@@ -1,4 +1,4 @@
-import type { FileData } from '../types';
+import type { FileData } from '../../types';
 
 /**
  * Service for handling file operations including loading, validation, and parsing

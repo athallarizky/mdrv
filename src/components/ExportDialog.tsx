@@ -6,7 +6,7 @@
 
 import { useState } from 'react';
 import type { FileData, CommentMap } from '../types';
-import { ExportService } from '../services/ExportService';
+import { ExportService } from '../services/export';
 import {
   Dialog,
   DialogContent,
