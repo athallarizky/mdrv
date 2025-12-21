@@ -5,8 +5,8 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { AppProvider } from './AppContext';
-import { useAppState } from './useAppState';
+import { AppProvider } from '../AppContext';
+import { useAppState } from '../useAppState';
 
 // Mock file for testing
 const createMockFile = (name: string, content: string): File => {
